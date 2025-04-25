@@ -1,0 +1,17 @@
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    list-style: none;
+    justify-content: center;
+    row-gap: 24px;
+    column-gap: 24px;
+}
+
+.gallery-image{
+    width: 360px;
+    height: 300px;
+}
+.modal{
+    background: rgba(46, 47, 66, 0.8);
+}
