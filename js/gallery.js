@@ -109,6 +109,7 @@ function openModal(image) {
     instance = basicLightbox.create(`
     <div class="modal">
       <img
+      class="modal-image"
       src="${image.original}" 
       alt="${image.description}" />
     </div>`);
