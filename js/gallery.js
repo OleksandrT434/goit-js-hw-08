@@ -63,47 +63,77 @@ const images = [
     description: 'Lighthouse Coast Sea',
   },
 ];
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 let instance; 
 
 const box = document.querySelector('.gallery');
 
+
+//////////////////////////////////////
+                                
 function imageTemplate(image) {
-    return `<li class="gallery-item">
-  <a class="gallery-link" href="${image.original}">
-    <img
-      class="gallery-image"
-      src="${image.preview}"
-      data-source="${image.original}"
-      alt="${image.description}"
-    />
-  </a>
-</li>`
-};
+    return `
+      <li class="gallery-item">
+        <a class="gallery-link" href="${image.original}">
+          <img
+            class="gallery-image"
+            src="${image.preview}"
+            data-source="${image.original}"
+            alt="${image.description}"
+          />
+        </a>
+      </li>
+    `;
+}
 
 function imagesTemplate(images) {
     return images.map(imageTemplate).join('');
-    
-};
+}
 
 function renderImages() {
     const markup = imagesTemplate(images);
     box.innerHTML = markup;
-    
-};
-renderImages() 
+}
 
+renderImages();
+
+///////////////////////////////////////////////////////
 
 
 function openModal(image) {
-    const instance = basicLightbox.create(`
+    instance = basicLightbox.create(`
     <div class="modal">
       <img
       src="${image.original}" 
       alt="${image.description}" />
-    </div>`)
-    instance.show()
+    </div>`);
+    instance.show();
 }
+
 function closeModal() {
-    instance.close();
+    if (instance) {
+        instance.close();
+    }
 }
-openModal()
+
+/////////////////////////////////////////////////////
+
+box.addEventListener('click', (event) => { 
+    event.preventDefault();
+
+    const clickEl = event.target;
+
+    if (clickEl.tagName !== 'IMG') return;
+
+    const image = {
+        original: clickEl.dataset.source,
+        description: clickEl.alt
+    };
+
+    openModal(image);
+});
